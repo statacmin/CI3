@@ -45,7 +45,8 @@
              else{
 			$topic_id = $this->topic_model->add($this->input->post('title'),$this->input->post('description'));
 			
-			#이메일 전송
+			$this->cache->delete('topics');
+			/*이메일 전송
 			$this->load->model('user_model');
 			$users = $this->user_model->gets();
 			$this->load->library('email');
@@ -58,6 +59,7 @@
 				$this->email->message('<a href="'.site_url().'index.php/topic/get/'.$topic_id.'">'.$this->input->post('title').'</a>');
 				$this->email->send();
 			}
+			*/
 
 			redirect('/topic/get/'.$topic_id);
              }

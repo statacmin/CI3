@@ -2,6 +2,8 @@
 class MY_Controller extends CI_Controller {
 	function __construct(){
 		parent::__construct();
+
+		$this->load->driver('cache', array('adapter' => 'file'));
 	}	
 
 	function _footer(){
@@ -14,7 +16,11 @@ class MY_Controller extends CI_Controller {
 	}
 
 	function _sidebar(){
-		$topics = $this->topic_model->gets();   
+		if ( ! $topics = $this->cache->get('topics')){
+			$topics = $this->topic_model->gets();  
+			$this->cache->save('topics', $topics, 300);
+		}
+		 
 		$this->load->view('topic_list', array('topics'=>$topics)); 
 	}
 }
