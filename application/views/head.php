@@ -10,10 +10,22 @@
     		   	body{
     		   		padding-top: 60px;
     		   	}
+    		   	.form_control{
+    		   		padding: 20px;
+    		   	}
     		   </style>
 		   <link href="/ci3/static/lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">    		   
             </head>
             <body>
+            		<?php
+            			if($this->session->flashdata('message')){
+            		?>
+            		<script type="text/javascript">
+            			alert('<?=$this->session->flashdata('message')?>')
+            		</script>
+            		<?php
+            		}
+            		?>
 			<div class="navbar navbar navbar-fixed-top">
 			<div class="navbar-inner">
 			<div class="container">
@@ -30,7 +42,20 @@
 		 
 			<!-- Everything you want hidden at 940px or less, place within here -->
 			<div class="nav-collapse collapse">
-			<!-- .nav, .navbar-search, .navbar-form, etc -->
+				<ul class="nav pull-right">
+					<?php
+						if ($this->session->userdata('is_login')) {
+					?>
+						<li><a href="/ci3/index.php/auth/logout">로그아웃</a></li>
+					<?php
+						}else{
+					?>
+						<li><a href="/ci3/index.php/auth/login">로그인</a></li>
+						<li><a href="/ci3/index.php/auth/register">회원가입</a></li>
+					<?php
+						}
+					?>
+				</ul>
 			</div>
 		 
 		    </div>
